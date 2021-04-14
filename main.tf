@@ -13,6 +13,16 @@ provider azurerm {
 
 locals {
   insights_map = { for a in var.application_insights : a.name => a }
+
+  api_keys = flatten([
+    for a in var.application_insights : [
+      for api_key in a.api_keys : {
+        application_insight_name = a.name
+        name                     = api_key.name
+        read_permissions         = api_key.read_permissions
+      }
+    ]
+  ])
 }
 
 resource "azurerm_resource_group" "main" {
@@ -31,4 +41,12 @@ resource "azurerm_application_insights" "main" {
   application_type    = each.value.application_type
 
   tags = var.tags
+}
+
+resource "azurerm_application_insights_api_key" "api_key" {
+  for_each = { for api_key in local.api_keys : "${api_key.application_insight_name}-${api_key.name}" => api_key }
+
+  name                    = each.key
+  application_insights_id = azurerm_application_insights.main[each.value.application_insight_name].id
+  read_permissions        = each.value.read_permissions
 }

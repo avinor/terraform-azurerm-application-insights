@@ -15,6 +15,10 @@ variable "application_insights" {
   type = list(object({
     name             = string
     application_type = string
+    api_keys = list(object({
+      name             = string
+      read_permissions = list(string)
+    }))
   }))
 }
 
