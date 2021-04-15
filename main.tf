@@ -1,8 +1,8 @@
 terraform {
-  required_version = ">= 0.12.6"
+  required_version = ">= 0.12.26"
   required_providers {
     azurerm = {
-      version = "~> 2.53.0"
+      version = "~> 2.55.0"
     }
   }
 }
@@ -49,4 +49,10 @@ resource "azurerm_application_insights_api_key" "api_key" {
   name                    = each.key
   application_insights_id = azurerm_application_insights.main[each.value.application_insight_name].id
   read_permissions        = each.value.read_permissions
+  write_permissions       = []
+
+  // Remove when bug https://github.com/terraform-providers/terraform-provider-azurerm/issues/6040 is fixed
+  lifecycle {
+    ignore_changes = [read_permissions, write_permissions]
+  }
 }
