@@ -35,7 +35,7 @@ resource "azurerm_resource_group" "main" {
 resource "azurerm_application_insights" "main" {
   for_each = local.insights_map
 
-  name                = each.key
+  name                = "${each.key}-appi"
   location            = azurerm_resource_group.main.location
   resource_group_name = azurerm_resource_group.main.name
   application_type    = each.value.application_type
