@@ -1,13 +1,13 @@
 terraform {
-  required_version = ">= 0.12.26"
+  required_version = ">= 0.13"
   required_providers {
     azurerm = {
-      version = "~> 2.55.0"
+      version = "~> 3.28.0"
     }
   }
 }
 
-provider azurerm {
+provider "azurerm" {
   features {}
 }
 
