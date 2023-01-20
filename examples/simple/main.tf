@@ -10,8 +10,8 @@ module "simple" {
     {
       name             = "app1"
       application_type = "web"
-      api_keys = []
-     },
+      api_keys         = []
+    },
     {
       name             = "app2"
       application_type = "web"
