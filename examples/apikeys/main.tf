@@ -20,7 +20,7 @@ module "apikeys" {
     {
       name             = "app2"
       application_type = "web"
-      api_keys         = [
+      api_keys = [
         {
           name             = "my2-api-key"
           read_permissions = ["api"]

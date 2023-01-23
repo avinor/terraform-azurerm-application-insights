@@ -19,6 +19,14 @@ variable "application_insights" {
       name             = string
       read_permissions = list(string)
     }))
+    web_ping_test = optional(object({
+      name                      = string
+      url                       = string
+      frequency                 = number
+      geo_locations             = list(string)
+      timeout                   = number
+      expected_http_status_code = number
+    }))
   }))
 }
 

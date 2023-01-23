@@ -1,39 +1,36 @@
 # Azure Application Insights
 
-Module to create multiple Application Insights within one resource group. 
+Module to create multiple Application Insights within one resource group.
 API keys are supported and is available from the output
 
-## Usage
-For terraform examples see the example directory
+## Basic Usage
 
-Example showing deployment with use of [tau](https://github.com/avinor/tau).
+```terraform
+module "simple" {
+  source = "github.com/avinor/terraform-azurerm-application-insight?ref=v0.1.0"
 
-```hcl-terraform
-module {
-    source = "github.com/avinor/terraform-azurerm-application-insight?ref=v0.1.0"
-}
+  name                = "simple"
+  location            = "westeurope"
+  resource_group_name = "simple-rg"
 
-inputs {
-    name                = "simple"
-    location            = "westeurope"
-    resource_group_name = "simple-rg"
-
-    application_insights = [
-      {
-        name             = "app1"
-        application_type = "web"
-        api_keys = [
-          {
-            name             = "my-api-key"
-            read_permissions = ["api", "draft"]
-          },
-        ]
-      },
-    ]
+  application_insights = [
+    {
+      name             = "app1"
+      application_type = "web"
+      api_keys         = [
+        {
+          name             = "my-api-key"
+          read_permissions = ["api", "draft"]
+        },
+      ]
+    },
+  ]
 }
 ```
 
-Output from the module is the
+See the example directory for more examples
+
+Output from the module is as follows:
 
 ```yaml
 api_keys:
@@ -51,5 +48,6 @@ ids:
 
 # Limitations
 
-Changes on API keys are ignored as of av [bug](https://github.com/terraform-providers/terraform-provider-azurerm/issues/6040) in the azurerm provider.
+Changes on API keys are ignored as of
+av [bug](https://github.com/terraform-providers/terraform-provider-azurerm/issues/6040) in the azurerm provider.
 To change permissions of the api keys new keys has to be created for now.
