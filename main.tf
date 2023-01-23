@@ -60,14 +60,15 @@ resource "azurerm_application_insights_web_test" "ping_test" {
   for_each = local.web_tests_map
 
   name                    = "${each.value.name}-wt"
+  kind                    = "ping"
+  enabled                 = true
   location                = azurerm_resource_group.main.location
   resource_group_name     = azurerm_resource_group.main.name
   application_insights_id = azurerm_application_insights.main[each.key].id
-  kind                    = "ping"
   frequency               = each.value.frequency
   timeout                 = each.value.timeout
-  enabled                 = true
   geo_locations           = each.value.geo_locations // See: https://learn.microsoft.com/en-us/azure/azure-monitor/app/monitor-web-app-availability#location-population-tags
+  tags                    = var.tags
   configuration           = <<XML
 <WebTest
         Name="${each.value.name}-wt" Id="${random_uuid.test_id[each.key].result}" Enabled="True" CssProjectStructure="" CssIteration=""
@@ -84,8 +85,6 @@ resource "azurerm_application_insights_web_test" "ping_test" {
     </Items>
 </WebTest>
 XML
-
-  tags = var.tags
 }
 
 resource "azurerm_application_insights_api_key" "api_key" {

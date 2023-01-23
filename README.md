@@ -1,13 +1,14 @@
 # Azure Application Insights
 
-Module to create multiple Application Insights within one resource group. 
+Module to create multiple Application Insights within one resource group.
 API keys are supported and is available from the output
 
 ## Basic Usage
+
 ```terraform
 module "simple" {
   source = "github.com/avinor/terraform-azurerm-application-insight?ref=v0.1.0"
-  
+
   name                = "simple"
   location            = "westeurope"
   resource_group_name = "simple-rg"
@@ -26,8 +27,8 @@ module "simple" {
   ]
 }
 ```
-See the example directory for more examples
 
+See the example directory for more examples
 
 Output from the module is as follows:
 
@@ -47,5 +48,6 @@ ids:
 
 # Limitations
 
-Changes on API keys are ignored as of av [bug](https://github.com/terraform-providers/terraform-provider-azurerm/issues/6040) in the azurerm provider.
+Changes on API keys are ignored as of
+av [bug](https://github.com/terraform-providers/terraform-provider-azurerm/issues/6040) in the azurerm provider.
 To change permissions of the api keys new keys has to be created for now.
