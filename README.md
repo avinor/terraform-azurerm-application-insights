@@ -3,37 +3,33 @@
 Module to create multiple Application Insights within one resource group. 
 API keys are supported and is available from the output
 
-## Usage
-For terraform examples see the example directory
+## Basic Usage
+```terraform
+module "simple" {
+  source = "github.com/avinor/terraform-azurerm-application-insight?ref=v0.1.0"
+  
+  name                = "simple"
+  location            = "westeurope"
+  resource_group_name = "simple-rg"
 
-Example showing deployment with use of [tau](https://github.com/avinor/tau).
-
-```hcl-terraform
-module {
-    source = "github.com/avinor/terraform-azurerm-application-insight?ref=v0.1.0"
-}
-
-inputs {
-    name                = "simple"
-    location            = "westeurope"
-    resource_group_name = "simple-rg"
-
-    application_insights = [
-      {
-        name             = "app1"
-        application_type = "web"
-        api_keys = [
-          {
-            name             = "my-api-key"
-            read_permissions = ["api", "draft"]
-          },
-        ]
-      },
-    ]
+  application_insights = [
+    {
+      name             = "app1"
+      application_type = "web"
+      api_keys         = [
+        {
+          name             = "my-api-key"
+          read_permissions = ["api", "draft"]
+        },
+      ]
+    },
+  ]
 }
 ```
+See the example directory for more examples
 
-Output from the module is the
+
+Output from the module is as follows:
 
 ```yaml
 api_keys:
