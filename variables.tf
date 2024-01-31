@@ -10,6 +10,10 @@ variable "location" {
   description = "Azure location where resources should be deployed."
 }
 
+variable "workspace_id" {
+  description = "Id of log analytics workspace resource."
+}
+
 variable "application_insights" {
   description = "List of application insights"
   type = list(object({
