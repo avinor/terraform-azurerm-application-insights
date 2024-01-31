@@ -7,11 +7,12 @@ API keys are supported and is available from the output
 
 ```terraform
 module "simple" {
-  source = "github.com/avinor/terraform-azurerm-application-insight?ref=v0.1.0"
+  source = "github.com/avinor/terraform-azurerm-application-insight?ref=v2.0.0"
 
   name                = "simple"
   location            = "westeurope"
   resource_group_name = "simple-rg"
+  workspace_id        = "/subscriptions/12345678-1234-9876-4563-123456789012/resourceGroups/example-resource-group/providers/Microsoft.OperationalInsights/workspaces/workspaceValue"
 
   application_insights = [
     {
